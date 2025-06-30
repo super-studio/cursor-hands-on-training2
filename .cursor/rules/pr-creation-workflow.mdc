@@ -32,9 +32,9 @@ gitブランチの確認からPull Requestの作成までの手順です。
     git push origin <branch-name>
     ```
 
-6.  **Pull Requestの作成**: `gh` コマンドを使用してPull Requestを作成します。タイトルと本文を適切に設定します。本文には、変更の背景、目的、具体的な変更内容を記述します。
-    ```bash
-    gh pr create --title "PRのタイトル" --body "### 概要
+6.  **Pull Requestの作成**: GitHub MCPを使って、Pull Requestを作成します。タイトルと本文を適切に設定します。本文は以下のtemplateを参考に作成して下さい。
+    ```本文template
+### 概要
 <!-- このPRの概要を記述 -->
 
 ### 変更点
@@ -45,7 +45,6 @@ gitブランチの確認からPull Requestの作成までの手順です。
 
 ### 確認方法
 <!-- レビュワーが動作確認する方法を記述 -->
-"
     ```
 
 7.  **レビューのチェックポイント**:
