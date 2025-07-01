@@ -2,19 +2,26 @@
 # Tabでエラーハンドリングを追加体験
 
 class FileProcessor
+  # ========= スタート =========
   def initialize
     @processed_files = []
   end
 
   def read_file(filename)
     # エラーハンドリングなし
+    begin
     content = File.read(filename)
     puts "ファイルを読み込みました: #{filename}"
     content
+    rescue => e
+      puts "ファイルの読み込みに失敗しました: #{e.message}"
+      return nil
+    end
   end
 
   def write_file(filename, content)
     # エラーハンドリングなし
+    begin
     File.write(filename, content)
     puts "ファイルに書き込みました: #{filename}"
   end
