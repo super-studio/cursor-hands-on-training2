@@ -1,7 +1,7 @@
 ---
 description: 
 globs: 
-alwaysApply: true
+alwaysApply: false
 ---
 # 注意事項
 - github mcpを呼び出す時は、`git remote -v`でリポジトリを確認してから開始して下さい。
