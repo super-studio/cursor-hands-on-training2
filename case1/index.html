@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>おいしい牛乳 - 北海道の恵み</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ヘッダー */
+        header {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: bold;
+            color: #1565c0;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .hero-subtitle {
+            font-size: 1.5rem;
+            color: #1976d2;
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 15px 40px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 1.2rem;
+            font-weight: bold;
+            transition: transform 0.3s, shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(255, 107, 107, 0.6);
+        }
+
+        /* 商品画像セクション */
+        .product-image {
+            text-align: center;
+            padding: 60px 0;
+            background: #f8f9fa;
+        }
+
+        .milk-bottle {
+            width: 300px;
+            height: 400px;
+            background: linear-gradient(to bottom, #ffffff 0%, #f0f8ff 100%);
+            border-radius: 20px;
+            margin: 0 auto;
+            border: 3px solid #e3f2fd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #1565c0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* 特徴セクション */
+        .features {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            color: #1565c0;
+            margin-bottom: 50px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .feature-card {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-title {
+            font-size: 1.5rem;
+            color: #1565c0;
+            margin-bottom: 15px;
+        }
+
+        /* お客様の声セクション */
+        .testimonials {
+            padding: 80px 0;
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: #2e7d32;
+        }
+
+        /* CTA セクション */
+        .cta-section {
+            background: linear-gradient(135deg, #1565c0 0%, #1976d2 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        /* フッター */
+        footer {
+            background: #263238;
+            color: white;
+            text-align: center;
+            padding: 30px 0;
+        }
+
+        /* レスポンシブ対応 */
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-subtitle {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .features-grid,
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .milk-bottle {
+                width: 250px;
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header>
+        <div class="container">
+            <h1 class="hero-title">おいしい牛乳</h1>
+            <p class="hero-subtitle">北海道の大自然が育んだ、こだわりの味</p>
+            <a href="#order" class="cta-button">今すぐ注文する</a>
+        </div>
+    </header>
+
+    <!-- 商品画像 -->
+    <section class="product-image">
+        <div class="container">
+            <div class="milk-bottle">
+                🥛<br>
+                おいしい牛乳<br>
+                1000ml
+            </div>
+        </div>
+    </section>
+
+    <!-- 特徴セクション -->
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">3つのこだわり</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🌾</div>
+                    <h3 class="feature-title">北海道産100%</h3>
+                    <p>広大な牧草地で育った健康な乳牛から搾った、新鮮で濃厚な牛乳です。自然の恵みをそのままお届けします。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">❄️</div>
+                    <h3 class="feature-title">低温殺菌製法</h3>
+                    <p>牛乳本来の風味と栄養を損なわない低温殺菌製法を採用。まろやかで自然な甘みが特徴です。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✨</div>
+                    <h3 class="feature-title">無添加・無調整</h3>
+                    <p>余計な添加物は一切使用せず、搾りたての牛乳をそのまま瓶詰め。安心・安全にこだわっています。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- お客様の声 -->
+    <section class="testimonials">
+        <div class="container">
+            <h2 class="section-title">お客様の声</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial-card">
+                    <p class="testimonial-text">「子供たちがごくごく飲んでくれます。濃厚なのにさっぱりしていて、毎朝の習慣になっています。」</p>
+                    <p class="testimonial-author">- 田中さま（主婦・35歳）</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">「コーヒーに入れても美味しく、料理にも重宝しています。品質の高さを実感できる牛乳です。」</p>
+                    <p class="testimonial-author">- 佐藤さま（会社員・42歳）</p>
+                </div>
+                <div class="testimonial-card">
+                    <p class="testimonial-text">「祖父母にも安心して飲ませられる品質。家族みんなで愛用しています。」</p>
+                    <p class="testimonial-author">- 山田さま（主婦・28歳）</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA セクション -->
+    <section class="cta-section" id="order">
+        <div class="container">
+            <h2>今すぐ始めませんか？</h2>
+            <p>健康で美味しい毎日を、おいしい牛乳とともに</p>
+            <a href="#" class="cta-button">注文・お問い合わせ</a>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 おいしい牛乳. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html> 
