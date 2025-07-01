@@ -2,6 +2,12 @@
 # Tabでエラーハンドリングを追加体験
 
 class FileProcessor
+  ERROR_MESSAGE = "JSONを解析しました"
+  SUCCESS_MESSAGE = "ファイルを読み込みました"
+  SUCCESS_MESSAGE = "ファイルに書き込みました"
+  SUCCESS_MESSAGE = "データベースに接続しました"
+  SUCCESS_MESSAGE = "計算結果: #{result}"
+  
   def initialize
     @processed_files = []
   end
@@ -9,36 +15,36 @@ class FileProcessor
   def read_file(filename)
     # エラーハンドリングなし
     content = File.read(filename)
-    puts "ファイルを読み込みました: #{filename}"
+    puts SUCCESS_MESSAGE
     content
   end
 
   def write_file(filename, content)
     # エラーハンドリングなし
     File.write(filename, content)
-    puts "ファイルに書き込みました: #{filename}"
+    puts SUCCESS_MESSAGE
   end
 
   def process_json(json_string)
     # JSON解析エラーハンドリングなし
     require 'json'
     data = JSON.parse(json_string)
-    puts "JSONを解析しました"
+    puts ERROR_MESSAGE
     data
   end
 
   def connect_to_database(host, port, username, password)
     # データベース接続エラーハンドリングなし
-    puts "データベースに接続中..."
+    puts SUCCESS_MESSAGE
     connection = create_connection(host, port, username, password)
-    puts "データベースに接続しました"
+    puts SUCCESS_MESSAGE
     connection
   end
 
   def divide_numbers(a, b)
     # ゼロ除算エラーハンドリングなし
     result = a / b
-    puts "計算結果: #{result}"
+    puts SUCCESS_MESSAGE
     result
   end
 
