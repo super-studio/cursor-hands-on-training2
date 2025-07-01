@@ -9,14 +9,17 @@ class Calculator
   # 不完全なメソッド - Tabで補完させる
   def add(a, b)
     # ここでTabを押して処理を補完
+    a + b
   end
 
   def subtract(a, b)
     # ここでTabを押して処理を補完
+    a - b
   end
 
   def multiply(a, b)
     # ここでTabを押して処理を補完
+    a * b
   end
 
   def divide(a, b)
@@ -25,10 +28,14 @@ class Calculator
 
   def calculate_average(numbers)
     # ここでTabを押して平均値計算を補完
+    numbers.sum / numbers.size
   end
 
   def fibonacci(n)
     # ここでTabを押してフィボナッチ数列を補完
+    return 0 if n == 0
+    return 1 if n == 1
+    fibonacci(n - 1) + fibonacci(n - 2)
   end
 end
 
