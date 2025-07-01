@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>おいしい牛乳 - 自然の恵みをお届け</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hiragino Sans', 'Yu Gothic UI', 'Meiryo', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.8;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.4)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23E8F5E8" width="1200" height="600"/><path fill="%23C8E6C9" d="M0,300 Q300,200 600,300 T1200,300 L1200,600 L0,600 Z"/></svg>');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            text-align: center;
+            color: white;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #FF6B35;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 107, 53, 0.3);
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 53, 0.4);
+        }
+
+        /* Features Section */
+        .features {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+            color: #2E7D32;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #2E7D32;
+        }
+
+        /* Product Section */
+        .product {
+            padding: 80px 0;
+            background: white;
+        }
+
+        .product-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .product-image {
+            text-align: center;
+        }
+
+        .milk-bottle {
+            width: 300px;
+            height: 400px;
+            background: linear-gradient(180deg, #ffffff 0%, #f8f9fa 100%);
+            border-radius: 20px 20px 40px 40px;
+            display: inline-block;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .milk-bottle::before {
+            content: 'おいしい牛乳';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2E7D32;
+        }
+
+        .nutrition-info {
+            background: #E8F5E8;
+            padding: 2rem;
+            border-radius: 15px;
+            margin-top: 2rem;
+        }
+
+        .nutrition-info h4 {
+            color: #2E7D32;
+            margin-bottom: 1rem;
+        }
+
+        .nutrition-list {
+            list-style: none;
+        }
+
+        .nutrition-list li {
+            padding: 0.5rem 0;
+            display: flex;
+            justify-content: space-between;
+            border-bottom: 1px solid #C8E6C9;
+        }
+
+        /* Testimonials */
+        .testimonials {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .testimonial {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-author {
+            font-weight: bold;
+            color: #2E7D32;
+        }
+
+        .stars {
+            color: #FFD700;
+            margin-bottom: 1rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #2E7D32 0%, #4CAF50 100%);
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #1B5E20;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h4 {
+            margin-bottom: 1rem;
+        }
+
+        .footer-section a {
+            color: #C8E6C9;
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .product-content {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+
+            .milk-bottle {
+                width: 250px;
+                height: 350px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">🥛 おいしい牛乳</div>
+            <ul class="nav-links">
+                <li><a href="#home">ホーム</a></li>
+                <li><a href="#features">特徴</a></li>
+                <li><a href="#product">商品</a></li>
+                <li><a href="#testimonials">お客様の声</a></li>
+                <li><a href="#contact">お問い合わせ</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>自然の恵み<br>おいしい牛乳</h1>
+                <p>北海道の豊かな大地で育った牛から、毎日新鮮な牛乳をお届けします。家族みんなで安心してお飲みいただける、自然の味をお楽しみください。</p>
+                <a href="#product" class="cta-button">今すぐ注文する</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="features">
+        <div class="container">
+            <h2 class="section-title">おいしい牛乳の特徴</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <span class="feature-icon">🌱</span>
+                    <h3>100%天然</h3>
+                    <p>添加物一切なし。北海道の清らかな環境で育った牛から搾った、純粋な牛乳です。</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">🚛</span>
+                    <h3>毎日新鮮</h3>
+                    <p>毎朝搾ったばかりの牛乳を、その日のうちにお客様のもとへお届けします。</p>
+                </div>
+                <div class="feature-card">
+                    <span class="feature-icon">💪</span>
+                    <h3>栄養豊富</h3>
+                    <p>カルシウム、タンパク質、ビタミンが豊富。成長期のお子様から大人まで。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Product Section -->
+    <section id="product" class="product">
+        <div class="container">
+            <h2 class="section-title">商品情報</h2>
+            <div class="product-content">
+                <div class="product-image">
+                    <div class="milk-bottle"></div>
+                </div>
+                <div class="product-info">
+                    <h3>おいしい牛乳 1000ml</h3>
+                    <p>北海道産100%の新鮮な牛乳。濃厚でありながらすっきりとした後味が特徴です。毎日の健康維持にお役立てください。</p>
+                    
+                    <div class="nutrition-info">
+                        <h4>栄養成分表示（100mlあたり）</h4>
+                        <ul class="nutrition-list">
+                            <li><span>エネルギー</span><span>67kcal</span></li>
+                            <li><span>タンパク質</span><span>3.3g</span></li>
+                            <li><span>脂質</span><span>3.8g</span></li>
+                            <li><span>炭水化物</span><span>4.8g</span></li>
+                            <li><span>カルシウム</span><span>110mg</span></li>
+                        </ul>
+                    </div>
+                    
+                    <div style="margin-top: 2rem;">
+                        <p style="font-size: 1.5rem; font-weight: bold; color: #FF6B35;">価格: ¥298（税込）</p>
+                        <a href="#order" class="cta-button" style="margin-top: 1rem; display: inline-block;">注文する</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials">
+        <div class="container">
+            <h2 class="section-title">お客様の声</h2>
+            <div class="testimonial-grid">
+                <div class="testimonial">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">「子どもたちが毎日おいしそうに飲んでいます。濃厚で自然な味が気に入っています。」</p>
+                    <p class="testimonial-author">- 田中様（東京都）</p>
+                </div>
+                <div class="testimonial">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">「コーヒーに入れると最高です。クリーミーで上品な味わいになります。」</p>
+                    <p class="testimonial-author">- 佐藤様（大阪府）</p>
+                </div>
+                <div class="testimonial">
+                    <div class="stars">★★★★★</div>
+                    <p class="testimonial-text">「新鮮さが違います。開封してすぐに分かる豊かな香りに感動しました。」</p>
+                    <p class="testimonial-author">- 鈴木様（愛知県）</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>今すぐ始めませんか？</h2>
+            <p>健康的で美味しい毎日を、おいしい牛乳と一緒に</p>
+            <a href="#order" class="cta-button">定期購入を申し込む</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>会社情報</h4>
+                    <a href="#">会社概要</a>
+                    <a href="#">アクセス</a>
+                    <a href="#">採用情報</a>
+                </div>
+                <div class="footer-section">
+                    <h4>商品情報</h4>
+                    <a href="#">商品一覧</a>
+                    <a href="#">栄養成分</a>
+                    <a href="#">品質管理</a>
+                </div>
+                <div class="footer-section">
+                    <h4>サポート</h4>
+                    <a href="#">お問い合わせ</a>
+                    <a href="#">よくある質問</a>
+                    <a href="#">配送について</a>
+                </div>
+            </div>
+            <p>&copy; 2024 おいしい牛乳株式会社. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html> 

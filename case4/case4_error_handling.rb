@@ -11,6 +11,9 @@ class FileProcessor
     content = File.read(filename)
     puts "ファイルを読み込みました: #{filename}"
     content
+  rescue Errno::ENOENT
+    puts "ファイルが見つかりません: #{filename}"
+    nil
   end
 
   def write_file(filename, content)
