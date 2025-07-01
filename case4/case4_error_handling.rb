@@ -7,16 +7,24 @@ class FileProcessor
   end
 
   def read_file(filename)
+    begin
     # エラーハンドリングなし
     content = File.read(filename)
     puts "ファイルを読み込みました: #{filename}"
     content
+    rescue => e
+      puts "ファイルの読み込みに失敗しました: #{e.message}"
+      return nil
+    end
   end
 
   def write_file(filename, content)
     # エラーハンドリングなし
     File.write(filename, content)
     puts "ファイルに書き込みました: #{filename}"
+    rescue => e
+      puts "ファイルの書き込みに失敗しました: #{e.message}"
+      return nil
   end
 
   def process_json(json_string)
@@ -25,6 +33,9 @@ class FileProcessor
     data = JSON.parse(json_string)
     puts "JSONを解析しました"
     data
+    rescue => e
+      puts "JSONの解析に失敗しました: #{e.message}"
+      return nil
   end
 
   def connect_to_database(host, port, username, password)
@@ -33,6 +44,9 @@ class FileProcessor
     connection = create_connection(host, port, username, password)
     puts "データベースに接続しました"
     connection
+    rescue => e
+      puts "データベースの接続に失敗しました: #{e.message}"
+      return nil
   end
 
   def divide_numbers(a, b)
@@ -40,7 +54,10 @@ class FileProcessor
     result = a / b
     puts "計算結果: #{result}"
     result
-  end
+    rescue => e
+      puts "ゼロ除算によるエラー: #{e.message}"
+      return nil
+    end
 
   private
 
