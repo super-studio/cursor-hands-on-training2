@@ -2,12 +2,21 @@
 # Tabでエラーハンドリングを追加体験
 
 class FileProcessor
+  # ========= スタート =========
+  MAX_FILE_SIZE = 10 * 1024 * 1024 # 10MB
+  # ========= エンド =========  
+
   def initialize
     @processed_files = []
   end
 
   def read_file(filename)
     # エラーハンドリングなし
+    if File.size(filename) > MAX_FILE_SIZE
+      puts "ファイルサイズが大きすぎます"
+      return false
+    end
+    
     content = File.read(filename)
     puts "ファイルを読み込みました: #{filename}"
     content
