@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Todo App</title>
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --secondary-color: #10b981;
+            --warning-color: #ef4444;
+            --background-color: #f8fafc;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 30px 30px 40px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            font-weight: 300;
+        }
+
+        .input-section {
+            padding: 30px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .input-container {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        #taskInput {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 16px;
+            transition: border-color 0.3s ease;
+        }
+
+        #taskInput:focus {
+            outline: none;
+            border-color: var(--primary-color);
+        }
+
+        #addBtn {
+            padding: 12px 20px;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #addBtn:hover {
+            background: #2563eb;
+        }
+
+        #addBtn:disabled {
+            background: #cbd5e1;
+            cursor: not-allowed;
+        }
+
+        .filter-section {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 8px 16px;
+            border: 1px solid var(--border-color);
+            background: white;
+            color: var(--text-color);
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover {
+            background: var(--background-color);
+        }
+
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .todo-list {
+            padding: 20px 30px;
+            min-height: 200px;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border-color);
+            animation: slideIn 0.3s ease;
+        }
+
+        .todo-item:last-child {
+            border-bottom: none;
+        }
+
+        .todo-checkbox {
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+
+        .todo-text {
+            flex: 1;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .todo-text.completed {
+            text-decoration: line-through;
+            color: #64748b;
+        }
+
+        .delete-btn {
+            padding: 6px 12px;
+            background: var(--warning-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 12px;
+            transition: background-color 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            background: #dc2626;
+        }
+
+        .footer {
+            padding: 20px 30px;
+            background: var(--background-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .task-count {
+            color: #64748b;
+            font-size: 14px;
+        }
+
+        .clear-completed {
+            padding: 8px 16px;
+            background: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s ease;
+        }
+
+        .clear-completed:hover {
+            background: #059669;
+        }
+
+        .clear-completed:disabled {
+            background: #cbd5e1;
+            cursor: not-allowed;
+        }
+
+        .empty-state {
+            text-align: center;
+            color: #64748b;
+            font-style: italic;
+            margin: 40px 0;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                border-radius: 12px;
+            }
+            
+            .header {
+                padding: 20px 20px 30px;
+            }
+            
+            .header h1 {
+                font-size: 1.5rem;
+            }
+            
+            .input-section,
+            .todo-list {
+                padding: 20px;
+            }
+            
+            .footer {
+                padding: 15px 20px;
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            .input-container {
+                flex-direction: column;
+            }
+            
+            #addBtn {
+                align-self: stretch;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📝 Simple Todo App</h1>
+            <p>あなたのタスクを効率的に管理しましょう</p>
+        </div>
+        
+        <div class="input-section">
+            <div class="input-container">
+                <input type="text" id="taskInput" placeholder="新しいタスクを入力..." maxlength="100" autocomplete="off">
+                <button id="addBtn">追加</button>
+            </div>
+            
+            <div class="filter-section">
+                <button class="filter-btn active" data-filter="all">全て</button>
+                <button class="filter-btn" data-filter="active">未完了</button>
+                <button class="filter-btn" data-filter="completed">完了済み</button>
+            </div>
+        </div>
+        
+        <div class="todo-list" id="todoList">
+            <div class="empty-state" id="emptyState">
+                まだタスクがありません。上記から新しいタスクを追加してください。
+            </div>
+        </div>
+        
+        <div class="footer">
+            <div class="task-count" id="taskCount">残り: 0件</div>
+            <button class="clear-completed" id="clearCompleted" disabled>完了済みを削除</button>
+        </div>
+    </div>
+
+    <script>
+        class TodoApp {
+            constructor() {
+                this.tasks = this.loadTasks();
+                this.currentFilter = 'all';
+                this.initEventListeners();
+                this.render();
+            }
+
+            initEventListeners() {
+                // タスク追加
+                document.getElementById('addBtn').addEventListener('click', () => this.addTask());
+                document.getElementById('taskInput').addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') this.addTask();
+                });
+
+                // 入力フィールドの状態監視
+                document.getElementById('taskInput').addEventListener('input', (e) => {
+                    const addBtn = document.getElementById('addBtn');
+                    addBtn.disabled = !e.target.value.trim();
+                });
+
+                // フィルター
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        this.currentFilter = e.target.dataset.filter;
+                        this.updateFilterButtons();
+                        this.render();
+                    });
+                });
+
+                // 完了済み削除
+                document.getElementById('clearCompleted').addEventListener('click', () => {
+                    this.clearCompleted();
+                });
+            }
+
+            addTask() {
+                const input = document.getElementById('taskInput');
+                const text = input.value.trim();
+                
+                if (!text) return;
+
+                const task = {
+                    id: Date.now(),
+                    text: text,
+                    completed: false,
+                    createdAt: new Date().toISOString()
+                };
+
+                this.tasks.push(task);
+                this.saveTasks();
+                input.value = '';
+                document.getElementById('addBtn').disabled = true;
+                this.render();
+            }
+
+            toggleTask(id) {
+                const task = this.tasks.find(t => t.id === id);
+                if (task) {
+                    task.completed = !task.completed;
+                    this.saveTasks();
+                    this.render();
+                }
+            }
+
+            deleteTask(id) {
+                this.tasks = this.tasks.filter(t => t.id !== id);
+                this.saveTasks();
+                this.render();
+            }
+
+            clearCompleted() {
+                this.tasks = this.tasks.filter(t => !t.completed);
+                this.saveTasks();
+                this.render();
+            }
+
+            getFilteredTasks() {
+                switch (this.currentFilter) {
+                    case 'active':
+                        return this.tasks.filter(t => !t.completed);
+                    case 'completed':
+                        return this.tasks.filter(t => t.completed);
+                    default:
+                        return this.tasks;
+                }
+            }
+
+            updateFilterButtons() {
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.filter === this.currentFilter);
+                });
+            }
+
+            render() {
+                const todoList = document.getElementById('todoList');
+                const emptyState = document.getElementById('emptyState');
+                const taskCount = document.getElementById('taskCount');
+                const clearBtn = document.getElementById('clearCompleted');
+
+                const filteredTasks = this.getFilteredTasks();
+                const activeTasks = this.tasks.filter(t => !t.completed);
+                const completedTasks = this.tasks.filter(t => t.completed);
+
+                // タスク一覧の表示
+                if (filteredTasks.length === 0) {
+                    todoList.innerHTML = '<div class="empty-state">該当するタスクがありません。</div>';
+                } else {
+                    todoList.innerHTML = filteredTasks.map(task => `
+                        <div class="todo-item">
+                            <input type="checkbox" class="todo-checkbox" 
+                                   ${task.completed ? 'checked' : ''} 
+                                   onchange="todoApp.toggleTask(${task.id})">
+                            <span class="todo-text ${task.completed ? 'completed' : ''}">${this.escapeHtml(task.text)}</span>
+                            <button class="delete-btn" onclick="todoApp.deleteTask(${task.id})">削除</button>
+                        </div>
+                    `).join('');
+                }
+
+                // フッター情報の更新
+                taskCount.textContent = `残り: ${activeTasks.length}件`;
+                clearBtn.disabled = completedTasks.length === 0;
+            }
+
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            saveTasks() {
+                try {
+                    localStorage.setItem('todoApp_tasks', JSON.stringify(this.tasks));
+                } catch (error) {
+                    console.error('タスクの保存に失敗しました:', error);
+                    alert('タスクの保存に失敗しました。ブラウザの設定を確認してください。');
+                }
+            }
+
+            loadTasks() {
+                try {
+                    const saved = localStorage.getItem('todoApp_tasks');
+                    return saved ? JSON.parse(saved) : [];
+                } catch (error) {
+                    console.error('タスクの読み込みに失敗しました:', error);
+                    return [];
+                }
+            }
+        }
+
+        // アプリケーション初期化
+        const todoApp = new TodoApp();
+
+        // キーボードアクセシビリティの向上
+        document.addEventListener('keydown', (e) => {
+            // Escapeキーで入力フィールドをクリア
+            if (e.key === 'Escape') {
+                const input = document.getElementById('taskInput');
+                input.value = '';
+                input.focus();
+                document.getElementById('addBtn').disabled = true;
+            }
+        });
+
+        // ページ読み込み時に入力フィールドにフォーカス
+        window.addEventListener('load', () => {
+            document.getElementById('taskInput').focus();
+        });
+    </script>
+</body>
+</html> 
