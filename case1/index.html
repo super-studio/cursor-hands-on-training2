@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>おいしい牛乳 - 新鮮で栄養豊富</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Hiragino Sans', 'Yu Gothic', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 1rem 0;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
+        }
+        
+        .hero {
+            text-align: center;
+            padding: 4rem 0;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            margin-bottom: 3rem;
+        }
+        
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: #ff6b6b;
+            color: white;
+            padding: 12px 30px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.4);
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem 0;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        
+        .feature-card h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+        
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .features {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav style="text-align: center;">
+                <h2 style="color: #667eea;">🥛 おいしい牛乳</h2>
+            </nav>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <h1>新鮮でおいしい牛乳</h1>
+            <p>毎日の健康をサポートする、栄養豊富な牛乳をお届けします</p>
+            <a href="#features" class="btn">詳細を見る</a>
+        </div>
+    </section>
+
+    <main class="container">
+        <section id="features" class="features">
+            <div class="feature-card">
+                <div class="feature-icon">🌱</div>
+                <h3>新鮮さ</h3>
+                <p>毎朝搾りたての新鮮な牛乳を、その日のうちにお届けします。自然の恵みをそのままお楽しみください。</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">💪</div>
+                <h3>栄養豊富</h3>
+                <p>カルシウム、タンパク質、ビタミンが豊富に含まれており、成長期のお子様から大人まで健康をサポートします。</p>
+            </div>
+            
+            <div class="feature-card">
+                <div class="feature-icon">🏆</div>
+                <h3>品質保証</h3>
+                <p>厳選された牧場から直送。品質管理を徹底し、安心・安全な牛乳をお客様にお届けしています。</p>
+            </div>
+        </section>
+        
+        <section style="text-align: center; padding: 3rem 0; background: white; border-radius: 15px; margin: 2rem 0; box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);">
+            <h2 style="color: #667eea; margin-bottom: 1rem;">お客様の声</h2>
+            <blockquote style="font-style: italic; font-size: 1.1rem; color: #666; max-width: 600px; margin: 0 auto;">
+                「毎朝この牛乳を飲むのが楽しみです。とても美味しくて、家族みんなが大好きです！」
+                <footer style="margin-top: 1rem; font-weight: bold; color: #333;">- 田中様</footer>
+            </blockquote>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 おいしい牛乳. All rights reserved.</p>
+            <p>お問い合わせ: info@oishii-milk.com | 📞 0120-123-456</p>
+        </div>
+    </footer>
+</body>
+</html> 

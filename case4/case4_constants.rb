@@ -9,6 +9,10 @@ class UserService
   end
 
   def create_user(name, email, age)
+    MIN_AGE = 18
+    MAX_AGE = 120
+    
+
     if age < 18
       puts "18歳未満は登録できません"
       return false
