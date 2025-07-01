@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>おいしい牛乳 - 自然の恵みをそのまま</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ヘッダー */
+        header {
+            background: linear-gradient(135deg, #4a90e2, #7bb8f0);
+            color: white;
+            padding: 60px 0;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #ff6b6b;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255,107,107,0.3);
+        }
+
+        .cta-button:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255,107,107,0.4);
+        }
+
+        /* メインコンテンツ */
+        .main-content {
+            padding: 80px 0;
+        }
+
+        .product-showcase {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            align-items: center;
+            margin-bottom: 80px;
+        }
+
+        .product-image {
+            text-align: center;
+        }
+
+        .milk-bottle {
+            width: 300px;
+            height: 400px;
+            background: linear-gradient(145deg, #f8f9fa, #e9ecef);
+            border-radius: 20px 20px 40px 40px;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .milk-bottle::before {
+            content: '🥛';
+            font-size: 8rem;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
+        .product-info h2 {
+            font-size: 2.5rem;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+
+        .product-info p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+            color: #555;
+        }
+
+        /* 特徴セクション */
+        .features {
+            background: #f8f9fa;
+            padding: 80px 0;
+        }
+
+        .features h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: #2c3e50;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .feature-card h3 {
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        /* 価格セクション */
+        .pricing {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .pricing h2 {
+            font-size: 2.5rem;
+            margin-bottom: 50px;
+            color: #2c3e50;
+        }
+
+        .price-card {
+            display: inline-block;
+            background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 400px;
+        }
+
+        .price {
+            font-size: 3rem;
+            color: #4a90e2;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .price-detail {
+            font-size: 1.1rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        /* フッター */
+        footer {
+            background: #2c3e50;
+            color: white;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .contact-info {
+            margin-bottom: 20px;
+        }
+
+        .contact-info p {
+            margin-bottom: 10px;
+        }
+
+        /* レスポンシブ */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .product-showcase {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .milk-bottle {
+                width: 250px;
+                height: 320px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .feature-card {
+                padding: 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1>おいしい牛乳</h1>
+            <p class="subtitle">北海道の大自然で育まれた、濃厚でクリーミーな味わい</p>
+            <a href="#order" class="cta-button">今すぐ注文する</a>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <div class="container">
+            <section class="product-showcase">
+                <div class="product-image">
+                    <div class="milk-bottle"></div>
+                </div>
+                <div class="product-info">
+                    <h2>自然の恵みをそのまま</h2>
+                    <p>北海道の広大な牧場で、ストレスフリーな環境で育った健康な牛たちから搾った新鮮な牛乳です。</p>
+                    <p>添加物は一切使用せず、自然本来の甘みとコクを大切にしています。毎朝の食卓に、お料理に、そしてお子様の成長に欠かせない栄養がたっぷり詰まっています。</p>
+                    <p>一口飲めば、その違いがわかる特別な味わいをお楽しみください。</p>
+                </div>
+            </section>
+        </div>
+
+        <section class="features">
+            <div class="container">
+                <h2>3つの特徴</h2>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">🌿</div>
+                        <h3>100%自然素材</h3>
+                        <p>添加物や防腐剤は一切使用せず、自然の恵みをそのままお届けしています。</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🐄</div>
+                        <h3>健康な牛から</h3>
+                        <p>広大な牧場でストレスなく育った健康な牛たちから、毎日新鮮な牛乳を搾っています。</p>
+                    </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">❄️</div>
+                        <h3>徹底した品質管理</h3>
+                        <p>搾乳から出荷まで、厳格な温度管理と衛生管理で最高の品質を保っています。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="pricing">
+            <div class="container">
+                <h2>価格</h2>
+                <div class="price-card">
+                    <div class="price">¥350</div>
+                    <div class="price-detail">1リットル（税込）</div>
+                    <a href="#order" class="cta-button">注文する</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer id="order">
+        <div class="container">
+            <div class="contact-info">
+                <h3>ご注文・お問い合わせ</h3>
+                <p>📞 TEL: 0120-123-456</p>
+                <p>📧 Email: info@oishii-milk.com</p>
+                <p>🕒 受付時間: 9:00〜18:00（土日祝除く）</p>
+            </div>
+            <p>&copy; 2024 おいしい牛乳. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // スムーススクロール
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ボタンのホバーエフェクト強化
+        document.querySelectorAll('.cta-button').forEach(button => {
+            button.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-2px) scale(1.05)';
+            });
+            
+            button.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+    </script>
+</body>
+</html> 
