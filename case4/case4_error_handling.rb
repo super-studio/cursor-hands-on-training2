@@ -8,15 +8,21 @@ class FileProcessor
 
   def read_file(filename)
     # エラーハンドリングなし
-    content = File.read(filename)
+    content = File.read(filename) # ファイルが存在しない場合はエラーが発生する
     puts "ファイルを読み込みました: #{filename}"
     content
+  rescue Errno::ENOENT => e
+    puts "ファイルが存在しません: #{filename}"
+    return nil
   end
 
   def write_file(filename, content)
     # エラーハンドリングなし
     File.write(filename, content)
     puts "ファイルに書き込みました: #{filename}"
+  rescue Errno::ENOENT => e
+    puts "ファイルが存在しません: #{filename}"
+    return nil
   end
 
   def process_json(json_string)
@@ -25,6 +31,9 @@ class FileProcessor
     data = JSON.parse(json_string)
     puts "JSONを解析しました"
     data
+  rescue JSON::ParserError => e
+    puts "JSONの解析に失敗しました"
+    return nil
   end
 
   def connect_to_database(host, port, username, password)
@@ -33,6 +42,9 @@ class FileProcessor
     connection = create_connection(host, port, username, password)
     puts "データベースに接続しました"
     connection
+  rescue Errno::ECONNREFUSED => e
+    puts "データベースに接続できません"
+    return nil
   end
 
   def divide_numbers(a, b)
@@ -40,6 +52,9 @@ class FileProcessor
     result = a / b
     puts "計算結果: #{result}"
     result
+  rescue ZeroDivisionError => e
+    puts "ゼロ除算が発生しました"
+    return nil
   end
 
   private
