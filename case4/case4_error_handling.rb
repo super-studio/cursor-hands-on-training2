@@ -2,6 +2,10 @@
 # Tabでエラーハンドリングを追加体験
 
 class FileProcessor
+  # ========= スタート =========
+  # 必要なエラー処理を追加
+
+
   def initialize
     @processed_files = []
   end
@@ -37,6 +41,10 @@ class FileProcessor
 
   def divide_numbers(a, b)
     # ゼロ除算エラーハンドリングなし
+    if b == 0
+      puts "ゼロ除算はできません"
+      return nil
+    end
     result = a / b
     puts "計算結果: #{result}"
     result
