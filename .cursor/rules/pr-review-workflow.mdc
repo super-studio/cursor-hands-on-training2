@@ -1,5 +1,34 @@
 ---
-description:
-globs:
+description: 
+globs: 
 alwaysApply: false
 ---
+# PRレビュー自動化ワークフロー（Rails5観点）
+
+## 概要
+このルールは、MCPのGitHubツールを活用し、既存のPull Request（PR）に対してRails5の観点で自動的にコードレビューを実施します。レビューは日本語で構造化されたレポートとして出力されます。
+
+## ワークフロー
+1. `git`コマンドでローカルブランチ名とリモートURL情報を取得
+2. `mcp_GitHub_list_pull_requests`で現在のブランチに対応するPRを検索
+3. `mcp_GitHub_get_pull_request_files`でPRの変更内容を取得
+4. 変更内容を以下のRails5観点で詳細分析
+5. 構造化されたレビューレポートを日本語で出力
+
+## Rails5レビュー観点
+- **セキュリティ**：SQLインジェクション、XSS、CSRF、Strong Parameters等
+- **パフォーマンス**：N+1問題、インデックス、キャッシュ等
+- **Rails規約・コード品質**：命名規則、MVC構造、DRY原則等
+- **データベース・マイグレーション**
+- **テスト**：カバレッジ、モック、エッジケース等
+
+## レビュー出力フォーマット
+- 基本情報（PR番号、タイトル、変更統計）
+- 合格項目・改善提案・要修正項目
+- 各観点別の総合評価
+- 推奨アクション（APPROVE/REQUEST_CHANGES/COMMENT）
+
+## 注意事項
+- MCPのGitHubツールを必ず使用すること
+- レビュー結果は必ず日本語でチャットに記載すること
+- ファイル名は`pr-review-workflow`とする
