@@ -7,20 +7,23 @@ class FileProcessor
   end
 
   def read_file(filename)
-    # エラーハンドリングなし
+    # エラーハンドリングなし ファイルが存在しない場合
+    raise "ファイルが存在しません" unless File.exist?(filename)
     content = File.read(filename)
     puts "ファイルを読み込みました: #{filename}"
     content
   end
 
   def write_file(filename, content)
-    # エラーハンドリングなし
+    # エラーハンドリングなし ファイルが存在しない場合
+    raise "ファイルが存在しません" unless File.exist?(filename)
     File.write(filename, content)
     puts "ファイルに書き込みました: #{filename}"
   end
 
   def process_json(json_string)
-    # JSON解析エラーハンドリングなし
+    # JSON解析エラーハンドリングなし 不正なJSONの場合
+    raise "不正なJSONです" unless json_string.valid_json?
     require 'json'
     data = JSON.parse(json_string)
     puts "JSONを解析しました"
@@ -28,7 +31,8 @@ class FileProcessor
   end
 
   def connect_to_database(host, port, username, password)
-    # データベース接続エラーハンドリングなし
+    # データベース接続エラーハンドリングなし データベースに接続できない場合
+    raise "データベースに接続できません" unless connect_to_database(host, port, username, password)
     puts "データベースに接続中..."
     connection = create_connection(host, port, username, password)
     puts "データベースに接続しました"
@@ -36,7 +40,8 @@ class FileProcessor
   end
 
   def divide_numbers(a, b)
-    # ゼロ除算エラーハンドリングなし
+    # ゼロ除算エラーハンドリングなし ゼロ除算の場合 エラーが発生する
+    raise "ゼロ除算はできません" if b == 0
     result = a / b
     puts "計算結果: #{result}"
     result
