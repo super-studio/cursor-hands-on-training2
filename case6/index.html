@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Todo App</title>
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --secondary-color: #10b981;
+            --danger-color: #ef4444;
+            --background-color: #f8fafc;
+            --text-color: #1e293b;
+            --card-background: #ffffff;
+            --border-color: #e2e8f0;
+            --shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--card-background);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+
+        .input-section {
+            padding: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .input-container {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .task-input {
+            flex: 1;
+            padding: 0.75rem 1rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .task-input:focus {
+            border-color: var(--primary-color);
+        }
+
+        .add-btn {
+            padding: 0.75rem 1.5rem;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.1s ease;
+        }
+
+        .add-btn:hover {
+            background-color: #2563eb;
+            transform: translateY(-1px);
+        }
+
+        .add-btn:active {
+            transform: translateY(0);
+        }
+
+        .filters {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.5rem 1rem;
+            background-color: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .filter-btn:hover:not(.active) {
+            background-color: var(--border-color);
+        }
+
+        .tasks-section {
+            padding: 2rem;
+            min-height: 300px;
+        }
+
+        .task-list {
+            list-style: none;
+        }
+
+        .task-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            background-color: var(--card-background);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            animation: slideIn 0.3s ease;
+        }
+
+        .task-item:hover {
+            transform: translateX(4px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .task-item.completed {
+            opacity: 0.7;
+            background-color: #f1f5f9;
+        }
+
+        .task-checkbox {
+            width: 20px;
+            height: 20px;
+            margin-right: 1rem;
+            cursor: pointer;
+            accent-color: var(--secondary-color);
+        }
+
+        .task-text {
+            flex: 1;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .task-text.completed {
+            text-decoration: line-through;
+            color: #64748b;
+        }
+
+        .delete-btn {
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            background-color: #dc2626;
+            transform: scale(1.05);
+        }
+
+        .footer {
+            padding: 1.5rem 2rem;
+            background-color: #f8fafc;
+            border-top: 1px solid var(--border-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .task-count {
+            font-size: 0.9rem;
+            color: #64748b;
+        }
+
+        .clear-completed-btn {
+            background-color: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .clear-completed-btn:hover {
+            background-color: #dc2626;
+        }
+
+        .clear-completed-btn:disabled {
+            background-color: #cbd5e1;
+            cursor: not-allowed;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem;
+            color: #64748b;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .empty-state p {
+            font-size: 1.1rem;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 1.5rem;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .input-section {
+                padding: 1.5rem;
+            }
+
+            .input-container {
+                flex-direction: column;
+            }
+
+            .tasks-section {
+                padding: 1.5rem;
+            }
+
+            .task-item {
+                padding: 0.75rem;
+            }
+
+            .footer {
+                padding: 1rem 1.5rem;
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Simple Todo App</h1>
+            <p>あなたのタスクを効率的に管理しましょう</p>
+        </div>
+
+        <div class="input-section">
+            <div class="input-container">
+                <input type="text" class="task-input" placeholder="新しいタスクを入力してください..." maxlength="100">
+                <button class="add-btn">追加</button>
+            </div>
+            <div class="filters">
+                <button class="filter-btn active" data-filter="all">すべて</button>
+                <button class="filter-btn" data-filter="active">未完了</button>
+                <button class="filter-btn" data-filter="completed">完了済み</button>
+            </div>
+        </div>
+
+        <div class="tasks-section">
+            <ul class="task-list"></ul>
+            <div class="empty-state" style="display: none;">
+                <h3>📝 タスクがありません</h3>
+                <p>上のフィールドから新しいタスクを追加してください</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <div class="task-count">
+                残り <span class="remaining-count">0</span> 件のタスク
+            </div>
+            <button class="clear-completed-btn" disabled>完了済みを削除</button>
+        </div>
+    </div>
+
+    <script>
+        class TodoApp {
+            constructor() {
+                this.tasks = this.loadTasks();
+                this.currentFilter = 'all';
+                this.init();
+            }
+
+            init() {
+                this.bindEvents();
+                this.render();
+            }
+
+            bindEvents() {
+                const taskInput = document.querySelector('.task-input');
+                const addBtn = document.querySelector('.add-btn');
+                const filterBtns = document.querySelectorAll('.filter-btn');
+                const clearCompletedBtn = document.querySelector('.clear-completed-btn');
+
+                // タスク追加
+                addBtn.addEventListener('click', () => this.addTask());
+                taskInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') this.addTask();
+                });
+
+                // フィルター
+                filterBtns.forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        this.setFilter(e.target.dataset.filter);
+                    });
+                });
+
+                // 完了済み削除
+                clearCompletedBtn.addEventListener('click', () => this.clearCompleted());
+            }
+
+            addTask() {
+                const taskInput = document.querySelector('.task-input');
+                const text = taskInput.value.trim();
+
+                if (!text) {
+                    taskInput.focus();
+                    return;
+                }
+
+                const task = {
+                    id: Date.now(),
+                    text: text,
+                    completed: false,
+                    createdAt: new Date().toISOString()
+                };
+
+                this.tasks.push(task);
+                this.saveTasks();
+                this.render();
+                taskInput.value = '';
+                taskInput.focus();
+            }
+
+            toggleTask(id) {
+                const task = this.tasks.find(t => t.id === id);
+                if (task) {
+                    task.completed = !task.completed;
+                    this.saveTasks();
+                    this.render();
+                }
+            }
+
+            deleteTask(id) {
+                this.tasks = this.tasks.filter(t => t.id !== id);
+                this.saveTasks();
+                this.render();
+            }
+
+            setFilter(filter) {
+                this.currentFilter = filter;
+                
+                // フィルターボタンの状態更新
+                document.querySelectorAll('.filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                document.querySelector(`[data-filter="${filter}"]`).classList.add('active');
+                
+                this.render();
+            }
+
+            clearCompleted() {
+                this.tasks = this.tasks.filter(t => !t.completed);
+                this.saveTasks();
+                this.render();
+            }
+
+            getFilteredTasks() {
+                switch (this.currentFilter) {
+                    case 'active':
+                        return this.tasks.filter(t => !t.completed);
+                    case 'completed':
+                        return this.tasks.filter(t => t.completed);
+                    default:
+                        return this.tasks;
+                }
+            }
+
+            render() {
+                const taskList = document.querySelector('.task-list');
+                const emptyState = document.querySelector('.empty-state');
+                const remainingCount = document.querySelector('.remaining-count');
+                const clearCompletedBtn = document.querySelector('.clear-completed-btn');
+
+                const filteredTasks = this.getFilteredTasks();
+                const activeTasks = this.tasks.filter(t => !t.completed);
+                const completedTasks = this.tasks.filter(t => t.completed);
+
+                // タスクリストのレンダリング
+                taskList.innerHTML = '';
+                
+                if (filteredTasks.length === 0) {
+                    emptyState.style.display = 'block';
+                    taskList.style.display = 'none';
+                } else {
+                    emptyState.style.display = 'none';
+                    taskList.style.display = 'block';
+                    
+                    filteredTasks.forEach(task => {
+                        const taskItem = this.createTaskElement(task);
+                        taskList.appendChild(taskItem);
+                    });
+                }
+
+                // フッターの更新
+                remainingCount.textContent = activeTasks.length;
+                clearCompletedBtn.disabled = completedTasks.length === 0;
+                clearCompletedBtn.textContent = `完了済みを削除 (${completedTasks.length})`;
+            }
+
+            createTaskElement(task) {
+                const li = document.createElement('li');
+                li.className = `task-item ${task.completed ? 'completed' : ''}`;
+                
+                li.innerHTML = `
+                    <input type="checkbox" class="task-checkbox" ${task.completed ? 'checked' : ''}>
+                    <span class="task-text ${task.completed ? 'completed' : ''}">${this.escapeHtml(task.text)}</span>
+                    <button class="delete-btn">削除</button>
+                `;
+
+                // イベントリスナーの追加
+                const checkbox = li.querySelector('.task-checkbox');
+                const deleteBtn = li.querySelector('.delete-btn');
+
+                checkbox.addEventListener('change', () => this.toggleTask(task.id));
+                deleteBtn.addEventListener('click', () => this.deleteTask(task.id));
+
+                return li;
+            }
+
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            saveTasks() {
+                try {
+                    localStorage.setItem('todoApp_tasks', JSON.stringify(this.tasks));
+                } catch (error) {
+                    console.error('タスクの保存に失敗しました:', error);
+                }
+            }
+
+            loadTasks() {
+                try {
+                    const tasks = localStorage.getItem('todoApp_tasks');
+                    return tasks ? JSON.parse(tasks) : [];
+                } catch (error) {
+                    console.error('タスクの読み込みに失敗しました:', error);
+                    return [];
+                }
+            }
+        }
+
+        // アプリケーションの初期化
+        document.addEventListener('DOMContentLoaded', () => {
+            new TodoApp();
+        });
+    </script>
+</body>
+</html> 
