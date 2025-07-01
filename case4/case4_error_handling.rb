@@ -8,38 +8,64 @@ class FileProcessor
 
   def read_file(filename)
     # エラーハンドリングなし
-    content = File.read(filename)
+    begin
+      content = File.read(filename)
+    rescue => e
+      puts "ファイルの読み込みに失敗しました: #{e.message}"
+      return nil
+    end
     puts "ファイルを読み込みました: #{filename}"
     content
   end
 
   def write_file(filename, content)
     # エラーハンドリングなし
-    File.write(filename, content)
+    begin
+      File.write(filename, content)
+    rescue => e
+      puts "ファイルの書き込みに失敗しました: #{e.message}"
+      return false
+    end
     puts "ファイルに書き込みました: #{filename}"
+    true
   end
 
   def process_json(json_string)
     # JSON解析エラーハンドリングなし
-    require 'json'
-    data = JSON.parse(json_string)
-    puts "JSONを解析しました"
-    data
+    begin
+      require 'json'
+      data = JSON.parse(json_string)
+      puts "JSONを解析しました"
+      data
+    rescue => e
+      puts "JSONの解析に失敗しました: #{e.message}"
+      return nil
+    end
   end
 
   def connect_to_database(host, port, username, password)
     # データベース接続エラーハンドリングなし
-    puts "データベースに接続中..."
-    connection = create_connection(host, port, username, password)
-    puts "データベースに接続しました"
-    connection
+    begin
+      puts "データベースに接続中..."
+      connection = create_connection(host, port, username, password)
+      puts "データベースに接続しました"
+      connection
+    rescue => e
+      puts "データベース接続に失敗しました: #{e.message}"
+      return nil
+    end
   end
 
   def divide_numbers(a, b)
     # ゼロ除算エラーハンドリングなし
-    result = a / b
-    puts "計算結果: #{result}"
-    result
+    begin
+      result = a / b
+      puts "計算結果: #{result}"
+      result
+    rescue => e
+      puts "ゼロ除算が発生しました: #{e.message}"
+      return nil
+    end
   end
 
   private
