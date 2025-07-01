@@ -12,7 +12,9 @@ end
 
 # 配列の合計を計算するfor文
 sum = 0
-for num in numbers
-  sum += num
+i = 0
+while i < numbers.length
+  sum += numbers[i]
+  i += 1
 end
 puts "合計: #{sum}"
