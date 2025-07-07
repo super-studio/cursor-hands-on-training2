@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Todo App</title>
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --secondary-color: #10b981;
+            --danger-color: #ef4444;
+            --bg-color: #f8fafc;
+            --text-color: #1e293b;
+            --border-color: #e2e8f0;
+            --hover-color: #f1f5f9;
+            --completed-color: #6b7280;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, var(--primary-color), #1e40af);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .header p {
+            opacity: 0.9;
+            font-size: 0.9rem;
+        }
+
+        .input-section {
+            padding: 2rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .input-container {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .task-input {
+            flex: 1;
+            padding: 0.75rem;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .task-input:focus {
+            border-color: var(--primary-color);
+        }
+
+        .add-btn {
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-btn:hover {
+            background: #1e40af;
+        }
+
+        .add-btn:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .filter-section {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            background: transparent;
+            border: 2px solid var(--border-color);
+            color: var(--text-color);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .filter-btn:hover {
+            background: var(--hover-color);
+        }
+
+        .filter-btn.active {
+            background: var(--primary-color);
+            color: white;
+            border-color: var(--primary-color);
+        }
+
+        .stats {
+            padding: 1rem 2rem;
+            background: var(--hover-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .stats-text {
+            font-size: 0.9rem;
+            color: var(--completed-color);
+        }
+
+        .clear-completed {
+            background: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .clear-completed:hover {
+            background: #dc2626;
+        }
+
+        .clear-completed:disabled {
+            background: #9ca3af;
+            cursor: not-allowed;
+        }
+
+        .todo-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .todo-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem 2rem;
+            border-bottom: 1px solid var(--border-color);
+            transition: background-color 0.3s ease;
+        }
+
+        .todo-item:hover {
+            background: var(--hover-color);
+        }
+
+        .todo-item.completed {
+            background: #f9fafb;
+        }
+
+        .todo-checkbox {
+            width: 20px;
+            height: 20px;
+            margin-right: 1rem;
+            cursor: pointer;
+            accent-color: var(--secondary-color);
+        }
+
+        .todo-text {
+            flex: 1;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .todo-text.completed {
+            text-decoration: line-through;
+            color: var(--completed-color);
+            opacity: 0.7;
+        }
+
+        .todo-date {
+            font-size: 0.8rem;
+            color: var(--completed-color);
+            margin-right: 1rem;
+        }
+
+        .delete-btn {
+            background: var(--danger-color);
+            color: white;
+            border: none;
+            padding: 0.5rem 0.75rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            background: #dc2626;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 3rem 2rem;
+            color: var(--completed-color);
+        }
+
+        .empty-state svg {
+            width: 64px;
+            height: 64px;
+            margin-bottom: 1rem;
+            opacity: 0.5;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.3s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 1.5rem;
+            }
+
+            .header h1 {
+                font-size: 1.5rem;
+            }
+
+            .input-section {
+                padding: 1.5rem;
+            }
+
+            .input-container {
+                flex-direction: column;
+            }
+
+            .add-btn {
+                width: 100%;
+            }
+
+            .filter-section {
+                gap: 0.25rem;
+            }
+
+            .filter-btn {
+                font-size: 0.8rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            .stats {
+                padding: 1rem 1.5rem;
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .todo-item {
+                padding: 1rem 1.5rem;
+            }
+
+            .todo-text {
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📝 Simple Todo App</h1>
+            <p>シンプルで使いやすいタスク管理アプリ</p>
+        </div>
+
+        <div class="input-section">
+            <div class="input-container">
+                <input type="text" class="task-input" placeholder="新しいタスクを入力..." maxlength="100">
+                <button class="add-btn" disabled>追加</button>
+            </div>
+            <div class="filter-section">
+                <button class="filter-btn active" data-filter="all">すべて</button>
+                <button class="filter-btn" data-filter="active">未完了</button>
+                <button class="filter-btn" data-filter="completed">完了済み</button>
+            </div>
+        </div>
+
+        <div class="stats">
+            <div class="stats-text">
+                <span id="total-tasks">0</span>件のタスク（残り: <span id="active-tasks">0</span>件）
+            </div>
+            <button class="clear-completed" disabled>完了済みを削除</button>
+        </div>
+
+        <div class="todo-list" id="todo-list">
+            <div class="empty-state">
+                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                </svg>
+                <p>まだタスクがありません。<br>上のフィールドから新しいタスクを追加してください。</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        class TodoApp {
+            constructor() {
+                this.tasks = this.loadTasks();
+                this.currentFilter = 'all';
+                this.init();
+            }
+
+            init() {
+                this.bindEvents();
+                this.render();
+            }
+
+            bindEvents() {
+                const taskInput = document.querySelector('.task-input');
+                const addBtn = document.querySelector('.add-btn');
+                const filterBtns = document.querySelectorAll('.filter-btn');
+                const clearCompletedBtn = document.querySelector('.clear-completed');
+
+                // タスク入力
+                taskInput.addEventListener('input', (e) => {
+                    const value = e.target.value.trim();
+                    addBtn.disabled = value === '';
+                });
+
+                taskInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter' && !addBtn.disabled) {
+                        this.addTask();
+                    }
+                });
+
+                // タスク追加
+                addBtn.addEventListener('click', () => {
+                    this.addTask();
+                });
+
+                // フィルタリング
+                filterBtns.forEach(btn => {
+                    btn.addEventListener('click', (e) => {
+                        filterBtns.forEach(b => b.classList.remove('active'));
+                        e.target.classList.add('active');
+                        this.currentFilter = e.target.dataset.filter;
+                        this.render();
+                    });
+                });
+
+                // 完了済み削除
+                clearCompletedBtn.addEventListener('click', () => {
+                    this.clearCompleted();
+                });
+
+                // キーボード操作
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        taskInput.blur();
+                    }
+                });
+            }
+
+            addTask() {
+                const taskInput = document.querySelector('.task-input');
+                const text = taskInput.value.trim();
+                
+                if (text === '') return;
+
+                const task = {
+                    id: Date.now(),
+                    text: text,
+                    completed: false,
+                    createdAt: new Date().toISOString()
+                };
+
+                this.tasks.unshift(task);
+                this.saveTasks();
+                taskInput.value = '';
+                document.querySelector('.add-btn').disabled = true;
+                this.render();
+            }
+
+            toggleTask(id) {
+                const task = this.tasks.find(t => t.id === id);
+                if (task) {
+                    task.completed = !task.completed;
+                    this.saveTasks();
+                    this.render();
+                }
+            }
+
+            deleteTask(id) {
+                this.tasks = this.tasks.filter(t => t.id !== id);
+                this.saveTasks();
+                this.render();
+            }
+
+            clearCompleted() {
+                this.tasks = this.tasks.filter(t => !t.completed);
+                this.saveTasks();
+                this.render();
+            }
+
+            getFilteredTasks() {
+                switch (this.currentFilter) {
+                    case 'active':
+                        return this.tasks.filter(t => !t.completed);
+                    case 'completed':
+                        return this.tasks.filter(t => t.completed);
+                    default:
+                        return this.tasks;
+                }
+            }
+
+            formatDate(dateString) {
+                const date = new Date(dateString);
+                const now = new Date();
+                const diff = now - date;
+                const minutes = Math.floor(diff / 60000);
+                const hours = Math.floor(diff / 3600000);
+                const days = Math.floor(diff / 86400000);
+
+                if (minutes < 1) return 'いま';
+                if (minutes < 60) return `${minutes}分前`;
+                if (hours < 24) return `${hours}時間前`;
+                if (days < 7) return `${days}日前`;
+                return date.toLocaleDateString('ja-JP');
+            }
+
+            render() {
+                const todoList = document.getElementById('todo-list');
+                const filteredTasks = this.getFilteredTasks();
+                
+                // 統計更新
+                const totalTasks = this.tasks.length;
+                const activeTasks = this.tasks.filter(t => !t.completed).length;
+                const completedTasks = this.tasks.filter(t => t.completed).length;
+                
+                document.getElementById('total-tasks').textContent = totalTasks;
+                document.getElementById('active-tasks').textContent = activeTasks;
+                document.querySelector('.clear-completed').disabled = completedTasks === 0;
+
+                // リスト表示
+                if (filteredTasks.length === 0) {
+                    let emptyMessage = '';
+                    switch (this.currentFilter) {
+                        case 'active':
+                            emptyMessage = totalTasks === 0 ? 
+                                'まだタスクがありません。' : 
+                                'おめでとうございます！<br>すべてのタスクが完了しました。';
+                            break;
+                        case 'completed':
+                            emptyMessage = '完了したタスクはありません。';
+                            break;
+                        default:
+                            emptyMessage = 'まだタスクがありません。<br>上のフィールドから新しいタスクを追加してください。';
+                    }
+                    
+                    todoList.innerHTML = `
+                        <div class="empty-state">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"></path>
+                            </svg>
+                            <p>${emptyMessage}</p>
+                        </div>
+                    `;
+                } else {
+                    todoList.innerHTML = filteredTasks.map(task => `
+                        <div class="todo-item ${task.completed ? 'completed' : ''} fade-in">
+                            <input type="checkbox" class="todo-checkbox" ${task.completed ? 'checked' : ''} 
+                                   onchange="todoApp.toggleTask(${task.id})">
+                            <div class="todo-text ${task.completed ? 'completed' : ''}">${this.escapeHtml(task.text)}</div>
+                            <div class="todo-date">${this.formatDate(task.createdAt)}</div>
+                            <button class="delete-btn" onclick="todoApp.deleteTask(${task.id})">削除</button>
+                        </div>
+                    `).join('');
+                }
+            }
+
+            escapeHtml(text) {
+                const div = document.createElement('div');
+                div.textContent = text;
+                return div.innerHTML;
+            }
+
+            saveTasks() {
+                try {
+                    localStorage.setItem('todoApp_tasks', JSON.stringify(this.tasks));
+                } catch (error) {
+                    console.error('Failed to save tasks:', error);
+                }
+            }
+
+            loadTasks() {
+                try {
+                    const saved = localStorage.getItem('todoApp_tasks');
+                    return saved ? JSON.parse(saved) : [];
+                } catch (error) {
+                    console.error('Failed to load tasks:', error);
+                    return [];
+                }
+            }
+        }
+
+        // アプリケーション初期化
+        const todoApp = new TodoApp();
+
+        // PWA対応のためのサービスワーカー登録（オプション）
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                // サービスワーカーは実装していないが、将来的に対応可能
+            });
+        }
+    </script>
+</body>
+</html> 
