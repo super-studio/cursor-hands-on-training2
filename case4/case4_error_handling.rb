@@ -8,6 +8,7 @@ class FileProcessor
 
   def read_file(filename)
     # エラーハンドリングなし
+    raise "ファイルが見つかりません: #{filename}" unless File.exist?(filename)
     content = File.read(filename)
     puts "ファイルを読み込みました: #{filename}"
     content
@@ -37,6 +38,7 @@ class FileProcessor
 
   def divide_numbers(a, b)
     # ゼロ除算エラーハンドリングなし
+    raise "ゼロ除算はできません" if b == 0
     result = a / b
     puts "計算結果: #{result}"
     result
@@ -47,6 +49,7 @@ class FileProcessor
   def create_connection(host, port, username, password)
     # 仮のコネクション作成（実際のDBライブラリは使用しない）
     { host: host, port: port, username: username, connected: true }
+    raise "データベースに接続できません" unless connection[:connected]
   end
 end
 
