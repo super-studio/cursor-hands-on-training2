@@ -1,0 +1,43 @@
+---
+description: Rails 5 PR Review Workflow - MCPのGitHubツールを使用してPull Requestを自動レビューする
+---
+
+# Rails 5 PR Review Workflow
+
+このルールは既存のPull RequestをMCPのGitHubツールを使用してRails 5の観点でコードレビューを実行する自動化されたワークフローです。
+
+## 実行手順
+
+### 1. リポジトリ情報の取得
+- git remote -v でリモートURL情報を取得
+- git branch --show-current で現在のローカルブランチ名を取得
+
+### 2. PR検索と変更内容の取得
+1. mcp_GitHub_list_pull_requests で現在のブランチに対応するPRを検索
+2. mcp_GitHub_get_pull_request_files でPRの変更ファイル一覧を取得
+3. mcp_GitHub_get_pull_request_diff で詳細な差分情報を取得
+
+### 3. Rails 5観点での詳細分析
+
+#### セキュリティ観点
+- SQLインジェクション対策: 生のSQL文の使用チェック、パラメータ化クエリの適切な使用
+- XSS対策: HTMLエスケープの適切な実装、rawメソッドやhtml_safeの安全な使用
+- CSRF対策: protect_from_forgeryの設定確認、フォームでのCSRFトークンの使用
+- Strong Parameters: permitメソッドの適切な使用、マスアサインメント脆弱性の回避
+- 認証・認可: 適切な認証フィルターの設定、権限チェックの実装確認
+
+#### パフォーマンス観点
+- N+1問題の回避: includes, joins, preloadの適切な使用
+- データベースインデックス: 新しいクエリに対するインデックス設計
+- キャッシュ戦略: フラグメントキャッシュ、クエリキャッシュの効果的な使用
+- メモリ使用量: 大量データ処理時のバッチ処理、メモリリークの防止
+
+## 使用方法
+
+このワークフローを実行するには、チャットで以下のいずれかを入力してください：
+
+現在のブランチのPRをRails 5の観点でレビューしてください
+
+または
+
+PRレビューワークフローを実行してください
