@@ -63,4 +63,9 @@ end
 calc = Calculator.new
 
 # ここでTabを押して使用例を補完
-puts calc.
+puts calc.add(1, 2)
+puts calc.subtract(3, 4)
+puts calc.multiply(5, 6)
+puts calc.divide(7, 8)
+puts calc.calculate_average([1, 2, 3, 4, 5])
+puts calc.fibonacci(10)
