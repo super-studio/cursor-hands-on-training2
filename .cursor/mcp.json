@@ -1,0 +1,13 @@
+{
+  "servers": {
+    "slack": {
+      "command": "node",
+      "args": ["mcp/slack/index.js"],
+      "env": {
+        "NODE_ENV": "production",
+        "SLACK_BOT_TOKEN": "${SLACK_BOT_TOKEN}",
+        "SLACK_USER_TOKEN": "${SLACK_USER_TOKEN}"
+      }
+    }
+  }
+}
