@@ -9,26 +9,35 @@ class Calculator
   # 不完全なメソッド - Tabで補完させる
   def add(a, b)
     # ここでTabを押して処理を補完
+    return a + b
   end
 
   def subtract(a, b)
     # ここでTabを押して処理を補完
+    return a - b
   end
 
   def multiply(a, b)
     # ここでTabを押して処理を補完
+    return a * b
   end
 
   def divide(a, b)
     # ここでTabを押して処理を補完（ゼロ除算も考慮）
+    return a / b
   end
 
   def calculate_average(numbers)
     # ここでTabを押して平均値計算を補完
+    return numbers.sum / numbers.length
   end
 
   def fibonacci(n)
     # ここでTabを押してフィボナッチ数列を補完
+    if n <= 1
+      return n
+    end
+    return fibonacci(n - 1) + fibonacci(n - 2)
   end
 end
 

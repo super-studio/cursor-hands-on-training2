@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>おいしい牛乳 - 自然の恵みをお届け</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hiragino Sans', 'Yu Gothic', 'Meiryo', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* ヘッダー */
+        header {
+            background: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: #ff6b6b;
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .cta-button:hover {
+            background: #ff5252;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.4);
+        }
+
+        /* 商品紹介セクション */
+        .product-section {
+            padding: 80px 0;
+            background: #f8f9fa;
+        }
+
+        .product-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        .product-image {
+            text-align: center;
+        }
+
+        .milk-bottle {
+            width: 300px;
+            height: 400px;
+            background: linear-gradient(180deg, #ffffff 0%, #f0f8ff 100%);
+            border-radius: 20px 20px 40px 40px;
+            margin: 0 auto;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: #4a90e2;
+            font-weight: bold;
+        }
+
+        .product-info h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .product-info p {
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+            color: #666;
+        }
+
+        /* 特徴セクション */
+        .features-section {
+            padding: 80px 0;
+        }
+
+        .features-section h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 60px;
+            color: #2c3e50;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 40px 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: #4a90e2;
+            border-radius: 50%;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+        }
+
+        .feature-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        /* CTAセクション */
+        .cta-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-align: center;
+            padding: 80px 0;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.9;
+        }
+
+        /* フッター */
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        /* レスポンシブデザイン */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .product-container {
+                grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .milk-bottle {
+                width: 250px;
+                height: 320px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .product-info h2,
+            .features-section h2,
+            .cta-section h2 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ヘッダー -->
+    <header>
+        <div class="container">
+            <div class="hero">
+                <h1>おいしい牛乳</h1>
+                <p>自然の恵みをそのままお届け。毎日の健康をサポートします。</p>
+                <a href="#order" class="cta-button">今すぐ注文する</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- 商品紹介セクション -->
+    <section class="product-section">
+        <div class="container">
+            <div class="product-container">
+                <div class="product-image">
+                    <div class="milk-bottle">
+                        🥛
+                    </div>
+                </div>
+                <div class="product-info">
+                    <h2>純粋な美味しさ</h2>
+                    <p>北海道の大自然で育った健康な牛から搾った、新鮮で栄養豊富な牛乳です。添加物は一切使用せず、自然本来の味わいをお楽しみいただけます。</p>
+                    <p>毎朝の食卓に、お子様の成長に、そして健康的な生活のパートナーとして、おいしい牛乳をお選びください。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 特徴セクション -->
+    <section class="features-section">
+        <div class="container">
+            <h2>選ばれる理由</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">🌱</div>
+                    <h3>自然な品質</h3>
+                    <p>化学添加物を一切使用せず、自然の恵みをそのままお届けします。安心・安全な品質をお約束します。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💪</div>
+                    <h3>豊富な栄養</h3>
+                    <p>カルシウム、タンパク質、ビタミンが豊富に含まれており、成長期のお子様から大人まで健康をサポートします。</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🚚</div>
+                    <h3>新鮮配送</h3>
+                    <p>搾りたての新鮮さを保つため、冷蔵配送でお客様のもとへ迅速にお届けします。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTAセクション -->
+    <section class="cta-section" id="order">
+        <div class="container">
+            <h2>今すぐ始めませんか？</h2>
+            <p>健康的な毎日は、おいしい牛乳から始まります</p>
+            <a href="#" class="cta-button">定期購入を申し込む</a>
+        </div>
+    </section>
+
+    <!-- フッター -->
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 おいしい牛乳. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
