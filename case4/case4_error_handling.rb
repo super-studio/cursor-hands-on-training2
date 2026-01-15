@@ -7,39 +7,64 @@ class FileProcessor
   end
 
   def read_file(filename)
-    # エラーハンドリングなし
-    content = File.read(filename)
-    puts "ファイルを読み込みました: #{filename}"
-    content
+    # エラーハンドリングなし  begin-rescueでエラーハンドリング
+    begin
+      content = File.read(filename)
+      puts "ファイルを読み込みました: #{filename}"
+      content
+    rescue => e
+      puts "ファイルを読み込めませんでした: #{e.message}"
+      return nil
+    end
   end
 
   def write_file(filename, content)
     # エラーハンドリングなし
-    File.write(filename, content)
-    puts "ファイルに書き込みました: #{filename}"
+    begin
+      File.write(filename, content)
+      puts "ファイルに書き込みました: #{filename}"
+    rescue => e
+      puts "ファイルに書き込めませんでした: #{e.message}"
+      return false
+    end
   end
 
   def process_json(json_string)
     # JSON解析エラーハンドリングなし
     require 'json'
-    data = JSON.parse(json_string)
-    puts "JSONを解析しました"
-    data
+    begin
+      data = JSON.parse(json_string)
+      puts "JSONを解析しました"
+      data
+    rescue => e
+      puts "JSONを解析できませんでした: #{e.message}"
+      return nil
+    end
   end
 
   def connect_to_database(host, port, username, password)
     # データベース接続エラーハンドリングなし
+    begin
     puts "データベースに接続中..."
-    connection = create_connection(host, port, username, password)
-    puts "データベースに接続しました"
-    connection
+      connection = create_connection(host, port, username, password)
+      puts "データベースに接続しました"
+      connection
+    rescue => e
+      puts "データベースに接続できませんでした: #{e.message}"
+      return nil
+    end
   end
 
   def divide_numbers(a, b)
     # ゼロ除算エラーハンドリングなし
-    result = a / b
-    puts "計算結果: #{result}"
-    result
+    begin
+      result = a / b
+      puts "計算結果: #{result}"
+      result
+    rescue => e
+      puts "ゼロ除算です: #{e.message}"
+      return false
+    end
   end
 
   private
